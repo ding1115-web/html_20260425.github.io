@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>集运客服话术手册 | 迈卡集运</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f5f7fb;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Helvetica, 'Noto Sans', sans-serif;
+            padding: 24px 20px 60px;
+            color: #1e293b;
+        }
+
+        /* 主容器 */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        /* 页眉 */
+        .header {
+            margin-bottom: 28px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 1.9rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #2c3e66, #1a4d8c);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.3px;
+        }
+        .header p {
+            color: #5b6e8c;
+            margin-top: 8px;
+            font-size: 0.95rem;
+            border-top: 1px solid #e2e8f0;
+            display: inline-block;
+            padding-top: 8px;
+        }
+
+        /* 分类网格布局 */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 24px;
+            margin-top: 10px;
+        }
+
+        /* 卡片样式 */
+        .card {
+            background: white;
+            border-radius: 28px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.03), 0 2px 6px rgba(0,0,0,0.05);
+            transition: all 0.2s ease;
+            overflow: hidden;
+            border: 1px solid #eef2f8;
+        }
+        .card:hover {
+            box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+            transform: translateY(-2px);
+        }
+
+        /* 卡片头部 */
+        .card-header {
+            padding: 18px 22px 10px 22px;
+            border-bottom: 2px solid #f0f2f6;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .card-header .emoji-badge {
+            font-size: 1.8rem;
+        }
+        .card-header h2 {
+            font-size: 1.35rem;
+            font-weight: 600;
+            letter-spacing: -0.2px;
+            color: #0f2b3d;
+        }
+
+        /* 话术列表 */
+        .script-list {
+            padding: 14px 18px 20px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+        .script-item {
+            background: #fafcff;
+            border-left: 4px solid;
+            border-radius: 14px;
+            padding: 12px 16px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: #1e2f44;
+            transition: background 0.1s ease;
+            box-shadow: 0 1px 1px rgba(0,0,0,0.02);
+        }
+        /* 不同分类左侧边框色 */
+        .card[data-cat="service"] .script-item { border-left-color: #3b82f6; }
+        .card[data-cat="time"] .script-item { border-left-color: #f59e0b; }
+        .card[data-cat="guide"] .script-item { border-left-color: #10b981; }
+        .card[data-cat="cost"] .script-item { border-left-color: #8b5cf6; }
+        .card[data-cat="after"] .script-item { border-left-color: #ef4444; }
+        .card[data-cat="notice"] .script-item { border-left-color: #ec489a; }
+
+        .script-item strong {
+            font-weight: 600;
+            color: #1e3a5f;
+        }
+        .script-item .quote-marker {
+            font-weight: 600;
+            background: #eef3ff;
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            margin-bottom: 8px;
+            color: #2563eb;
+        }
+        .script-content {
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        .script-content p {
+            margin: 6px 0;
+        }
+        .small-note {
+            font-size: 0.75rem;
+            color: #6c7a91;
+            margin-top: 8px;
+            border-top: 1px dashed #e9edf2;
+            padding-top: 6px;
+        }
+
+        /* 特殊emoji/符号保留原样 */
+        .inline-code {
+            background: #eef2fa;
+            border-radius: 12px;
+            padding: 0 4px;
+            font-family: monospace;
+            font-size: 0.85rem;
+        }
+        hr {
+            margin: 5px 0;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.75rem;
+            color: #7e8aa2;
+            border-top: 1px solid #e2edf2;
+            padding-top: 24px;
+        }
+
+        @media (max-width: 760px) {
+            body {
+                padding: 16px 12px;
+            }
+            .card-header h2 {
+                font-size: 1.2rem;
+            }
+            .script-list {
+                padding: 12px 14px;
+            }
+        }
+
+        /* 复制功能小标记 */
+        .copy-tip {
+            cursor: pointer;
+            float: right;
+            font-size: 0.7rem;
+            background: #f1f5f9;
+            padding: 2px 8px;
+            border-radius: 40px;
+            color: #4b5563;
+            transition: 0.1s;
+        }
+        .copy-tip:hover {
+            background: #e2e8f0;
+            color: #0f172a;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>📦 迈卡集运 · 客服标准话术手册</h1>
+        <p>新版分类 | 按场景快速检索 | 支持一键复制</p>
+    </div>
+
+    <div class="grid">
+        <!-- 1. 服务介绍板块 -->
+        <div class="card" data-cat="service">
+            <div class="card-header">
+                <span class="emoji-badge">✨</span>
+                <h2>一、服务介绍</h2>
+            </div>
+            <div class="script-list">
+                <div class="script-item">
+                    <div class="copy-tip" onclick="copyText(this)">📋 复制</div>
+                    <div class="script-content">
+                        <strong>宝，最近有寄件需求吗？咱们有三种服务可选：</strong><br>
+                        ✅ 直邮：不用拼团，即寄即发，直接送到家门口。<br>
+                        ✅ 拼邮：大家拼满12kg安排出库发货，运费更省，适合小包裹集运。<br>
+                        ✅ 大件/超大件：告诉尺寸*重量*邮编，明码报价，杜绝套路。<br>
+                        [玫瑰]可以告诉我你的需求，我给你详细介绍
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. 时效说明板块 (包含空运海运+免责+旺季等) -->
+        <div class="card" data-cat="time">
+            <div class="card-header">
+                <span class="emoji-badge">⏱️</span>
+                <h2>二、时效说明</h2>
+            </div>
+            <div class="script-list">
+                <div class="script-item">
+                    <div class="copy-tip" onclick="copyText(this)">📋 复制</div>
+                    <div class="script-content">
+                        ✈️ <strong>空运时效参考</strong><br>
+                        空运特快（普货）：支付订单后5-7个工作日左右签收。<br>
+                        空运特货（敏货+特货）：支付订单后13个工作日左右签收。宝可作为参考。
+                    </div>
+                </div>
+                <div class="script-item">
+                    <div class="copy-tip" onclick="copyText(this)">📋 复制</div>
+                    <div class="script-content">
+                        🚢 <strong>海运时效参考</strong><br>
+                        快船：开船后20-25天左右签收。<br>
+                        普船：开船后一个月左右签收。<br>
+                        宝，你按平均时效选择线路即可，快船平均20-25天签收，普船一个月左右签收。
+                    </div>
+                </div>
+                <div class="script-item">
+                    <div class="copy-tip" onclick="copyText(this)">📋 复制</div>
+                    <div class="script-content">
+                        ⚓ <strong>到港后流程 & 预估说明</strong><br>
+                        预估到港只是预估，实际以船公司回传为准。快船海上平均13-15天，普船18-20天，回传更新可能有几小时延迟。<br>
+                        船到港后需清关→卸货海外仓→快递提取派送，UPS上网更新时效约3-5天。末端派送：美西1-2天，美中2-3天，美东3-5天。
+                    </div>
+                </div>
+                <div class="script-item">
+                    <div class="copy-tip" onclick="copyText(this)">📋 复制</div>
+                    <div class="script-content">
+                        ⚠️ <strong>时效免责 + 旺季说明</strong><br>
+                        宝子，时效无法百分百保证，运输可能遇清关查验、天气、灾害等不可抗力。公司无超时赔付售后，具体协商。<br>
+                        旺季货物激增会导致每个环节延误，系统尾程随机FedEx/UPS出单，我们会催促派送。
+                    </div>
+                </div>
+                <div class="script-item">
+                    <div class="copy-tip" onclick="copyText(this)">📋 复制</div>
+                    <div class="script-content">
+                        💬 <strong>安抚/延误解释</strong><br>
+                        宝宝，不是每一批包裹都会延误，国际运输像接力赛，对方效率、天气、节假日都可能影响时效。我们会第一时间跟踪催促。
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. 操作指南板块 (退件/打包/普敏分开/合并下单等) -->
+        <div class="card" data-cat="guide">
+            <div class="card-header">
+                <span class="emoji-badge">📦</span>
+                <h2>三、操作指南</h2>
+            </div>
+            <div class="script-list">
+                <div class="script-item">
+                    <div class="copy-tip" onclick="copyText(this)">📋 复制</div>
+                    <div class="script-content">
+                        🔁 <strong>退件处理</strong><br>
+                        包裹入库后，可在电商平台退货-申请上门取件，提供取件时间和取件码(仓库上班6-18点)，或提供收件地址我们寄出，只需支付快递费用。
+                    </div>
+                </div>
+                <div class="script-item">
+                    <div class="copy-tip" onclick="copyText(this)">📋 复制</div>
+                    <div class="script-content">
+                        📑 <strong>普货/敏货分开打包</strong><br>
+                        如需分开寄运，包裹入库后同时下两个订单（一个普货单，一个敏货单），打包备注写：“普货敏货2单分开”。包裹随意勾选，仓库按线路拣货。<br>
+                        🔔 温馨提示：普敏分开备注“普敏分开打包”；普/快船拼成备注“普船快船哪个拼成走哪个”。
+                    </div>
+                </div>
+                <div class="script-item">
+                    <div class="copy-tip" onclick="copyText(this)">📋 复制</div>
+                    <div class="script-content">
+                        📦 <strong>多包裹合并示例</strong><br>
+                        比如一次50个包裹，全部勾选下一个订单，仓库会打包成一箱。收费：订单操作费10元 + 拆包费1元/包裹，合计60元。
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. 费用相关 (拆包费/订单费+保险) -->
+        <div class="card" data-cat="cost">
+            <div class="card-header">
+                <span class="emoji-badge">💰</span>
+                <h2>四、费用相关</h2>
+            </div>
+            <div class="script-list">
+                <div class="script-item">
+                    <div class="copy-tip" onclick="copyText(this)">📋 复制</div>
+                    <div class="script-content">
+                        🧾 <strong>拆包费 & 订单费</strong><br>
+                        包裹申请打包后，仓库按申请打包的包裹个数分别拆包检查并拍照。同线路只收取一次订单费，如多个订单可联系修改，包裹到齐再申请打包。
+                    </div>
+                </div>
+                <div class="script-item">
+                    <div class="copy-tip" onclick="copyText(this)">📋 复制</div>
+                    <div class="script-content">
+                        🛡️ <strong>寄运保险规则</strong><br>
+                        运费+免费保价300元。<br>
+                        ▪️ 保额300-2000元：收取保费100元<br>
+                        ▪️ 保额2000元以上：保费为保额的5%<br>
+                        未勾选购买保险 = 未购买但仍享免费保价300元赔付。赔付不高于实际货值，需提供价值凭证。<br>
+                        合单/拼邮备注：同一ID多订单合箱发出，按合并为一个订单进行售后赔付。
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. 异常与售后 (丢件/协商) -->
+        <div class="card" data-cat="after">
+            <div class="card-header">
+                <span class="emoji-badge">⚠️</span>
+                <h2>五、异常与售后</h2>
+            </div>
+            <div class="script-list">
+                <div class="script-item">
+                    <div class="copy-tip" onclick="copyText(this)">📋 复制</div>
+                    <div class="script-content">
+                        💔 <strong>丢件处理时效</strong><br>
+                        除不可抗力等异常情况外，包裹物流轨迹无进展超60个工作日即按丢件处理。赔付后如包裹再次找到并送达，已赔付货值部分需返还（基础运费不退）。
+                    </div>
+                </div>
+                <div class="script-item">
+                    <div class="copy-tip" onclick="copyText(this)">📋 复制</div>
+                    <div class="script-content">
+                        🤝 <strong>超时/延误协商</strong><br>
+                        宝子诉求时效无法百分百保证，正常平均时效内送达，遇不可抗力无法控制。公司无超时赔付售后，届时根据具体情况进行协商。
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. 通知与提醒 (拼邮截单/公众号/其他) -->
+        <div class="card" data-cat="notice">
+            <div class="card-header">
+                <span class="emoji-badge">📢</span>
+                <h2>六、通知与提醒</h2>
+            </div>
+            <div class="script-list">
+                <div class="script-item">
+                    <div class="copy-tip" onclick="copyText(this)">📋 复制</div>
+                    <div class="script-content">
+                        🗓️ <strong>周四拼邮截单日</strong><br>
+                        📣 宝子们，今天是周四拼邮截单日，请大家及时申请打包，祝大家生活愉快！
+                    </div>
+                </div>
+                <div class="script-item">
+                    <div class="copy-tip" onclick="copyText(this)">📋 复制</div>
+                    <div class="script-content">
+                        🤖 <strong>公众号通知提醒</strong><br>
+                        通知：现系统由公众号“迈卡集运”推送包裹入库通知、订单账单、发货通知，请大家关注公众号及时接收提醒。[玫瑰]
+                    </div>
+                </div>
+                <div class="script-item">
+                    <div class="copy-tip" onclick="copyText(this)">📋 复制</div>
+                    <div class="script-content">
+                        📌 <strong>日常温馨提示常备</strong><br>
+                        🔔 普敏分开打包备注指南 / 拼船调剂可备注“普船快船哪个拼成走哪个” / 合单备注参考保险合并规则。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 补充：一些零散但重要的额外话术（避免遗漏）单独做一个小模块，内嵌至单独卡片不够优雅但为了完整 -->
+    <div style="margin-top: 32px;">
+        <div class="grid" style="grid-template-columns: 1fr 1fr;">
+            <div class="card" data-cat="guide">
+                <div class="card-header">
+                    <span class="emoji-badge">📌</span>
+                    <h2>补充操作 · 多订单/合箱注意</h2>
+                </div>
+                <div class="script-list">
+                    <div class="script-item">
+                        <div class="copy-tip" onclick="copyText(this)">📋 复制</div>
+                        <div class="script-content">
+                            <strong>合单/拼邮备注（保险相关）</strong><br>
+                            同一ID下多订单合单/合箱发出情况下，按合并为一个订单进行售后赔付结算。请客户知悉。
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card" data-cat="time">
+                <div class="card-header">
+                    <span class="emoji-badge">🌊</span>
+                    <h2>海运额外时效说明</h2>
+                </div>
+                <div class="script-list">
+                    <div class="script-item">
+                        <div class="copy-tip" onclick="copyText(this)">📋 复制</div>
+                        <div class="script-content">
+                            ▫️ 快船开船后20-25天左右签收，普船一个月左右签收。<br>
+                            ▫️ 普船/快船可按先拼成发货调剂，客户备注“普船快船哪个拼成走哪个”。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        🌟 迈卡集运客服内部手册 · 新客服请熟读分类话术 | 点击每段右侧【📋复制】可快速引用
+    </footer>
+</div>
+
+<script>
+    // 复制功能：根据点击的父级找到对应文本块内容
+    function copyText(element) {
+        // 向上寻找 .script-item 然后找到 .script-content 内的文本
+        let scriptItem = element.closest('.script-item');
+        if (!scriptItem) return;
+        let contentDiv = scriptItem.querySelector('.script-content');
+        if (!contentDiv) return;
+        
+        // 获取纯文本内容，保留原始换行符号
+        let rawText = contentDiv.innerText.trim();
+        // 添加便于客服使用的格式化前缀（可选）
+        navigator.clipboard.writeText(rawText).then(() => {
+            // 临时提示
+            let originalText = element.innerText;
+            element.innerText = '✅ 已复制';
+            setTimeout(() => {
+                element.innerText = originalText;
+            }, 1200);
+        }).catch(err => {
+            console.error('复制失败: ', err);
+            alert('手动复制失败，请长按选择复制');
+        });
+    }
+    // 针对可能动态加载无碍
+    document.querySelectorAll('.copy-tip').forEach(btn => {
+        // 确保任何地方都有作用，但已绑定onclick属性，无需额外。
+    });
+</script>
+</body>
+</html>
